@@ -9,7 +9,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/dipanjan-44/fleetcart.git'
+                git branch: 'main', url: 'https://github.com/dipanjan-44/fleetcart.git'
             }
         }
 
