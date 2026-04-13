@@ -6,13 +6,13 @@ import java.sql.DriverManager;
 public class DBConnection {
 
     private static final String URL =
-            "jdbc:mysql://mysql:3306/fleetcart?useSSL=false&serverTimezone=UTC";
+            "jdbc:mysql://localhost:3307/fleetcart?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
     private static final String USER =
             "root";
 
     private static final String PASSWORD =
-            "UDCidcl#10"; // change if needed
+            "root"; // change if needed
 
     public static Connection getConnection() {
 

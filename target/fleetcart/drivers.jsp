@@ -8,6 +8,27 @@
 
 <title>Drivers</title>
 
+<%
+String success = request.getParameter("success");
+String error = request.getParameter("error");
+%>
+
+<% if (success != null) { %>
+
+<div id="successMessage" class="alert success">
+    Driver Added Successfully!
+</div>
+
+<% } %>
+
+<% if (error != null) { %>
+
+<div id="errorMessage" class="alert error">
+    Operation failed. Please try again.
+</div>
+
+<% } %>
+
 <link rel="stylesheet"
 href="<%= request.getContextPath() %>/style.css">
 
@@ -105,6 +126,21 @@ for (Driver driver : drivers) {
 </table>
 
 </div>
+
+<script>
+setTimeout(function () {
+    var successMsg = document.getElementById("successMessage");
+    var errorMsg = document.getElementById("errorMessage");
+
+    if (successMsg) {
+        successMsg.classList.add("fade-out");
+    }
+
+    if (errorMsg) {
+        errorMsg.classList.add("fade-out");
+    }
+}, 3000); // disappears after 3 seconds
+</script>
 
 </body>
 

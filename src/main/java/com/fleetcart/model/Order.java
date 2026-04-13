@@ -1,13 +1,15 @@
 package com.fleetcart.model;
 
+import java.sql.Timestamp;
+
 public class Order {
 
     private int id;
-    private String customerName;
+    private String customer;
     private String pickupLocation;
     private String deliveryLocation;
     private String status;
-    private String createdAt;
+    private Timestamp createdAt;
 
     public int getId() {
         return id;
@@ -17,12 +19,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomer() {
+        return customer;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
 
     public String getPickupLocation() {
@@ -49,11 +51,11 @@ public class Order {
         this.status = status;
     }
 
-    public String getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 }

@@ -14,24 +14,22 @@ public class OrderDAO {
 
     public static List<Order> getAllOrders() {
 
-        List<Order> orders =
-                new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
 
         try {
 
-            Connection conn =
-                    DBConnection.getConnection();
+                Connection conn = DBConnection.getConnection();
 
-            String sql =
-                    "SELECT * FROM orders ORDER BY id DESC";
+                String sql =
+                "SELECT * FROM orders ORDER BY id DESC";
 
-            Statement stmt =
-                    conn.createStatement();
+                PreparedStatement ps =
+                conn.prepareStatement(sql);
 
-            ResultSet rs =
-                    stmt.executeQuery(sql);
+                ResultSet rs =
+                ps.executeQuery();
 
-            while (rs.next()) {
+                while (rs.next()) {
 
                 Order order =
                         new Order();
@@ -40,7 +38,7 @@ public class OrderDAO {
                         rs.getInt("id")
                 );
 
-                order.setCustomerName(
+                order.setCustomer(
                         rs.getString("customer_name")
                 );
 
@@ -57,24 +55,21 @@ public class OrderDAO {
                 );
 
                 order.setCreatedAt(
-                        rs.getString("created_at")
+                        rs.getTimestamp("created_at")
                 );
 
                 orders.add(order);
+                System.out.println("Order loaded: " + order.getCustomer());
+                }
 
-            }
+        } catch (Exception e) {
 
+                e.printStackTrace();
         }
 
-        catch (Exception e) {
-
-            e.printStackTrace();
-
+                return orders;
         }
 
-        return orders;
-
-    }
     public static int getTotalOrders() {
 
     int count = 0;
@@ -147,6 +142,51 @@ public static int getPendingOrders() {
 
     return count;
 
+}
+
+public static List<Order> searchOrders(String keyword) {
+
+    List<Order> list = new ArrayList<>();
+
+    try {
+        Connection conn = DBConnection.getConnection();
+
+        String sql =
+            "SELECT * FROM orders " +
+            "WHERE customer LIKE ? " +
+            "OR pickup_location LIKE ? " +
+            "OR delivery_location LIKE ? " +
+            "ORDER BY id DESC";
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        String search = "%" + keyword + "%";
+
+        ps.setString(1, search);
+        ps.setString(2, search);
+        ps.setString(3, search);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+
+            Order order = new Order();
+
+            order.setId(rs.getInt("id"));
+            order.setCustomer(rs.getString("customer"));
+            order.setPickupLocation(rs.getString("pickup_location"));
+            order.setDeliveryLocation(rs.getString("delivery_location"));
+            order.setStatus(rs.getString("status"));
+            order.setCreatedAt(rs.getTimestamp("created_at"));
+
+            list.add(order);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
 }
 
 }

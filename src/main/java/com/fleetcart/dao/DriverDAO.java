@@ -11,11 +11,12 @@ import java.util.List;
 
 public class DriverDAO {
 
-    public static void addDriver(
+    public static int addDriver(
             String name,
             String phone,
             String status
     ) {
+        int rows = 0;
 
         try {
 
@@ -32,7 +33,7 @@ public class DriverDAO {
             ps.setString(2, phone);
             ps.setString(3, status);
 
-            ps.executeUpdate();
+            rows = ps.executeUpdate();
 
         }
 
@@ -41,6 +42,8 @@ public class DriverDAO {
             e.printStackTrace();
 
         }
+
+        return rows;
 
     }
 

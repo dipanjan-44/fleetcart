@@ -14,28 +14,22 @@ public class AddDriverServlet extends HttpServlet {
     protected void doPost(
             HttpServletRequest request,
             HttpServletResponse response
-    )
-            throws ServletException, IOException {
+    ) throws ServletException, IOException {
 
-        String name =
-                request.getParameter("name");
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String status = request.getParameter("status");
 
-        String phone =
-                request.getParameter("phone");
-
-        String status =
-                request.getParameter("status");
-
-        DriverDAO.addDriver(
+        int rows = DriverDAO.addDriver(
                 name,
                 phone,
                 status
         );
 
-        response.sendRedirect(
-                "drivers.jsp"
-        );
-
+        if (rows > 0) {
+            response.sendRedirect("drivers.jsp?success=1");
+        } else {
+            response.sendRedirect("drivers.jsp?error=1");
+        }
     }
-
 }

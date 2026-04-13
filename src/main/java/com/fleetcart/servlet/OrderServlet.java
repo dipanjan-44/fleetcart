@@ -44,11 +44,13 @@ public class OrderServlet extends HttpServlet {
             ps.setString(3, deliveryLocation);
             ps.setString(4, "Pending");
 
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
 
-            response.sendRedirect(
-                    "dashboard.jsp"
-            );
+            if (rows > 0) {
+                response.sendRedirect("dashboard.jsp?success=1");
+            } else {
+                response.sendRedirect("dashboard.jsp?error=1");
+            }
 
         }
 
