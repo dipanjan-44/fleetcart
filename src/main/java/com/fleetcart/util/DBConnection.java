@@ -15,34 +15,22 @@ public class DBConnection {
             "root"; // change if needed
 
     public static Connection getConnection() {
-
-        Connection connection = null;
+        Connection conn = null;
 
         try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+                String url = "jdbc:mysql://fleetcart-mysql:3306/fleetcart";
+                String username = "root";
+                String password = "root";
 
-            connection =
-                    DriverManager.getConnection(
-                            URL,
-                            USER,
-                            PASSWORD
-                    );
+                conn = DriverManager.getConnection(url, username, password);
 
-            System.out.println(
-                    "Database connected successfully"
-            );
-
+        } catch (Exception e) {
+                e.printStackTrace();
         }
 
-        catch (Exception e) {
-
-            e.printStackTrace();
-
+        return conn;
         }
-
-        return connection;
-
-    }
 
 }
