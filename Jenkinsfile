@@ -2,19 +2,12 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "fleetcart-app"
+        IMAGE_NAME = "floki69/fleetcart-app"
         CONTAINER_NAME = "fleetcart-container"
         PORT = "8083"
     }
 
     stages {
-
-        stage('Clone Repository') {
-            steps {
-                git branch: 'main',
-                url: 'https://github.com/dipanjan-44/fleetcart'
-            }
-        }
 
         stage('Build Maven Project') {
             steps {
@@ -28,15 +21,16 @@ pipeline {
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Push Docker Image') {
             steps {
-                bat 'docker stop %CONTAINER_NAME% || exit 0'
-                bat 'docker rm %CONTAINER_NAME% || exit 0'
+                bat 'docker push %IMAGE_NAME%'
             }
         }
 
-        stage('Run New Container') {
+        stage('Deploy Container') {
             steps {
+                bat 'docker stop %CONTAINER_NAME% || exit 0'
+                bat 'docker rm %CONTAINER_NAME% || exit 0'
                 bat 'docker run -d -p %PORT%:8080 --name %CONTAINER_NAME% %IMAGE_NAME%'
             }
         }
