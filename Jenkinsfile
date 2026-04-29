@@ -1,19 +1,22 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven'
+    environment {
+        IMAGE_NAME = "fleetcart-app"
+        CONTAINER_NAME = "fleetcart-container"
+        PORT = "8083"
     }
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/dipanjan-44/fleetcart.git'
+                git branch: 'main',
+                url: 'https://github.com/dipanjan-44/fleetcart'
             }
         }
 
-        stage('Build Project') {
+        stage('Build Maven Project') {
             steps {
                 bat 'mvn clean package'
             }
@@ -21,16 +24,21 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t fleetcart-app .'
+                bat 'docker build -t %IMAGE_NAME% .'
             }
         }
 
-        stage('Deploy Application') {
+        stage('Stop Old Container') {
             steps {
-                bat 'docker-compose down'
-                bat 'docker-compose up -d --build'
+                bat 'docker stop %CONTAINER_NAME% || exit 0'
+                bat 'docker rm %CONTAINER_NAME% || exit 0'
             }
         }
 
+        stage('Run New Container') {
+            steps {
+                bat 'docker run -d -p %PORT%:8084 --name %CONTAINER_NAME% %IMAGE_NAME%'
+            }
+        }
     }
 }
