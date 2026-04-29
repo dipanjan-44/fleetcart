@@ -21,12 +21,6 @@ pipeline {
             }
         }
 
-        stage('Docker Login') {
-            steps {
-                bat 'docker login'
-            }
-        }
-
         stage('Push Docker Image') {
             steps {
                 bat 'docker push %IMAGE_NAME%'
