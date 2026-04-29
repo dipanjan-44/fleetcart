@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DBConnection {
 
     private static final String URL =
-        "jdbc:mysql://fleetcart-mysql:3306/fleetcart"
+        "jdbc:mysql://host.docker.internal:3307/fleetcart"
         + "?useSSL=false"
         + "&allowPublicKeyRetrieval=true"
         + "&serverTimezone=UTC";
