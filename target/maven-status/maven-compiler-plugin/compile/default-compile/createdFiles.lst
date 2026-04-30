@@ -7,6 +7,7 @@ com\fleetcart\model\Order.class
 com\fleetcart\dao\OrderDAO.class
 com\fleetcart\servlet\DeleteDriverServlet.class
 com\fleetcart\servlet\LoginServlet.class
+com\fleetcart\servlet\RegisterServlet.class
 com\fleetcart\dao\LoginDAO.class
 com\fleetcart\servlet\OrderServlet.class
 com\fleetcart\dao\DriverDAO.class

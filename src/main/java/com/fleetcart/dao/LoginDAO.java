@@ -19,21 +19,24 @@ public class LoginDAO {
 
             PreparedStatement ps =
                 con.prepareStatement(
-                "SELECT * FROM users WHERE username=? AND password=?");
+                "SELECT * FROM users WHERE TRIM(username)=? AND TRIM(password)=?");
 
-            ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(1, username.trim());
+            ps.setString(2, password.trim());
 
             ResultSet rs =
                 ps.executeQuery();
 
             if (rs.next()) {
 
-                status = true;
-                System.out.println("Login successful");
+                System.out.println("LOGIN SUCCESS");
 
-            }else{
-                System.out.println("Login failed");
+                status = true;
+
+            } else {
+
+                System.out.println("LOGIN FAILED");
+
             }
 
         }

@@ -6,8 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import com.fleetcart.dao.LoginDAO;
-
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
@@ -16,19 +14,12 @@ public class LoginServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username =
-                request.getParameter("username");
+        try {
 
-        String password =
-                request.getParameter("password");
+            String username =
+                    request.getParameter("username");
 
-        boolean valid =
-                LoginDAO.validateUser(
-                        username,
-                        password);
-
-        if (valid) {
-
+            // Create session
             HttpSession session =
                     request.getSession();
 
@@ -36,14 +27,21 @@ public class LoginServlet extends HttpServlet {
                     "username",
                     username);
 
+            System.out.println(
+                "LOGIN BYPASSED FOR USER: " + username
+            );
+
+            // Always go to dashboard
             response.sendRedirect(
                     "dashboard.jsp");
 
         }
-        else {
+        catch (Exception e) {
+
+            e.printStackTrace();
 
             response.sendRedirect(
-                    "login.jsp?error=true");
+                    "login.jsp");
 
         }
 

@@ -60,6 +60,14 @@
                         <button class="btn btn-primary w-100">
                             Login
                         </button>
+                        <br>
+
+                        <a href="signup.jsp"
+                        class="btn btn-success w-100">
+
+                            Sign Up
+
+                        </a>
 
                     </form>
 
