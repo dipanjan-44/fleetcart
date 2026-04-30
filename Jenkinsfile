@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "fleetcart-app"
+        IMAGE_NAME = "floki69/fleetcart-app"
         CONTAINER_NAME = "fleetcart-container"
         PORT = "8083"
     }
@@ -21,15 +21,28 @@ pipeline {
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Login to Docker Hub') {
             steps {
-                bat 'docker stop %CONTAINER_NAME% || exit 0'
-                bat 'docker rm %CONTAINER_NAME% || exit 0'
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                }
             }
         }
 
-        stage('Run New Container') {
+        stage('Push Docker Image') {
             steps {
+                bat 'docker push %IMAGE_NAME%'
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                bat 'docker stop %CONTAINER_NAME% || exit 0'
+                bat 'docker rm %CONTAINER_NAME% || exit 0'
                 bat 'docker run -d -p %PORT%:8080 --name %CONTAINER_NAME% %IMAGE_NAME%'
             }
         }
