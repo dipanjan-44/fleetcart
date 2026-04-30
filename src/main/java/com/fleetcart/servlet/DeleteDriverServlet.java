@@ -4,17 +4,16 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.fleetcart.util.DBConnection;
 
 @WebServlet("/delete-driver")
-public class DeleteDriverServlet
-        extends HttpServlet {
+public class DeleteDriverServlet extends HttpServlet {
 
     protected void doPost(
             HttpServletRequest request,
@@ -24,8 +23,7 @@ public class DeleteDriverServlet
         try {
 
             int id = Integer.parseInt(
-                    request.getParameter(
-                    "driverId"));
+                    request.getParameter("driverId"));
 
             Connection con =
                     DBConnection.getConnection();
@@ -42,7 +40,6 @@ public class DeleteDriverServlet
                     "drivers.jsp?success=true");
 
         }
-
         catch (Exception e) {
 
             e.printStackTrace();
