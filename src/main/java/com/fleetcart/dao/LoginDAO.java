@@ -30,7 +30,10 @@ public class LoginDAO {
             if (rs.next()) {
 
                 status = true;
+                System.out.println("Login successful");
 
+            }else{
+                System.out.println("Login failed");
             }
 
         }
