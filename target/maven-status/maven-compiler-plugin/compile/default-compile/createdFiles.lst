@@ -1,6 +1,7 @@
 com\fleetcart\servlet\TestDBServlet.class
 com\fleetcart\dao\OrderDAO.class
 com\fleetcart\servlet\DeleteDriverServlet.class
+com\fleetcart\servlet\LoginServlet.class
 com\fleetcart\util\DBConnection.class
 com\fleetcart\servlet\OrderServlet.class
 com\fleetcart\servlet\AddDriverServlet.class

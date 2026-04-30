@@ -39,7 +39,7 @@
                         FleetCart Login
                     </h3>
 
-                    <form action="dashboard.jsp" method="post">
+                    <form action="LoginServlet" method="post">
 
                         <div class="mb-3">
                             <label>Username</label>
