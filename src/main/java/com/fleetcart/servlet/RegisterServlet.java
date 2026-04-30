@@ -21,37 +21,43 @@ public class RegisterServlet extends HttpServlet {
         try {
 
             String username =
-                    request.getParameter("username");
+                request.getParameter("username");
 
             String password =
-                    request.getParameter("password");
+                request.getParameter("password");
+
+            System.out.println("REGISTER REQUEST:");
+            System.out.println("Username: " + username);
+            System.out.println("Password: " + password);
 
             Connection con =
-                    DBConnection.getConnection();
+                DBConnection.getConnection();
 
             PreparedStatement ps =
-                    con.prepareStatement(
-                    "INSERT INTO users (username, password) VALUES (?, ?)");
+                con.prepareStatement(
+                "INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
 
             ps.setString(1, username);
             ps.setString(2, password);
+            ps.setString(3, "USER");
 
             int rows =
-                    ps.executeUpdate();
+                ps.executeUpdate();
 
-            System.out.println(
-                    "Rows inserted: " + rows);
+            System.out.println("Rows inserted: " + rows);
 
             response.sendRedirect(
-                    "login.jsp");
+                "login.jsp?registered=true");
 
         }
+
         catch (Exception e) {
 
+            System.out.println("REGISTRATION ERROR:");
             e.printStackTrace();
 
             response.sendRedirect(
-                    "signup.jsp");
+                "signup.jsp?error=true");
 
         }
 
