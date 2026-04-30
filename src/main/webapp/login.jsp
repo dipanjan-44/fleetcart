@@ -1,48 +1,75 @@
-<%@ page language="java" %>
-
+<!DOCTYPE html>
 <html>
 <head>
+    <title>FleetCart Login</title>
 
-<title>FleetCart Login</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            height: 100vh;
+        }
 
+        .login-card {
+            margin-top: 100px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .brand-title {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
+    <div class="row justify-content-center">
 
-<h2>FleetCart Login</h2>
+        <div class="col-md-4">
+            <div class="card login-card">
 
-<form action="dashboard.jsp">
+                <div class="card-body">
 
-<label>Username:</label>
+                    <h3 class="text-center brand-title">
+                        FleetCart Login
+                    </h3>
 
-<br>
+                    <form action="LoginServlet" method="post">
 
-<input type="text" name="username" required>
+                        <div class="mb-3">
+                            <label>Username</label>
+                            <input type="text"
+                                   name="username"
+                                   class="form-control"
+                                   required>
+                        </div>
 
-<br><br>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   required>
+                        </div>
 
-<label>Password:</label>
+                        <button class="btn btn-primary w-100">
+                            Login
+                        </button>
 
-<br>
+                    </form>
 
-<input type="password" name="password" required>
+                </div>
 
-<br><br>
+            </div>
+        </div>
 
-<button type="submit">
-
-Login
-
-</button>
-
-</form>
-
+    </div>
 </div>
 
 </body>
-
 </html>
