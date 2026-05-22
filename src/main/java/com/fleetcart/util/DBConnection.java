@@ -5,32 +5,33 @@ import java.sql.DriverManager;
 
 public class DBConnection {
 
-    private static final String URL =
-        "jdbc:mysql://host.docker.internal:3307/fleetcart";
-
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static Connection connection;
 
     public static Connection getConnection() {
 
-        Connection conn = null;
-
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = DriverManager.getConnection(
-                URL,
-                USER,
-                PASSWORD
-            );
+            if (connection == null || connection.isClosed()) {
 
-            System.out.println("DB CONNECTED SUCCESSFULLY");
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                String url = "jdbc:mysql://host.docker.internal:3307/fleetcart?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
+                String username = "root";
+
+                String password = "root";
+
+                connection = DriverManager.getConnection(
+                        url,
+                        username,
+                        password
+                );
+            }
 
         } catch (Exception e) {
-            System.out.println("DB CONNECTION FAILED");
             e.printStackTrace();
         }
 
-        return conn;
+        return connection;
     }
 }
