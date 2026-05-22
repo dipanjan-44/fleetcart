@@ -15,11 +15,9 @@ public class DBConnection {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                String url = "jdbc:mysql://host.docker.internal:3307/fleetcart?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-
-                String username = "root";
-
-                String password = "root";
+                String url = System.getenv("DB_URL");
+                String username = System.getenv("DB_USERNAME");
+                String password = System.getenv("DB_PASSWORD");
 
                 connection = DriverManager.getConnection(
                         url,
