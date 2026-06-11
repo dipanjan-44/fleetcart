@@ -36,7 +36,7 @@ public class DBConnection {
 
         } catch (Exception e) {
 
-            System.out.println("DB CONNECTION FAILED");
+            System.out.println("DataBase CONNECTION FAILED");
             e.printStackTrace();
         }
 
