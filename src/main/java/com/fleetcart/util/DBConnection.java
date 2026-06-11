@@ -19,7 +19,11 @@ public class DBConnection {
                 String username = System.getenv("DB_USERNAME");
                 String password = System.getenv("DB_PASSWORD");
 
-                System.out.println("DB URL: " + url);
+                System.out.println("=================================");
+                System.out.println("DB_URL = " + url);
+                System.out.println("DB_USERNAME = " + username);
+                System.out.println("DB_PASSWORD EXISTS = " + (password != null));
+                System.out.println("=================================");
 
                 connection = DriverManager.getConnection(
                         url,
